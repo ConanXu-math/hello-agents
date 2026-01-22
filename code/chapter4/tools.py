@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import os
-from serpapi import SerpApiClient
+import serpapi
 from typing import Dict, Any
 
 def search(query: str) -> str:
@@ -17,16 +17,16 @@ def search(query: str) -> str:
         if not api_key:
             return "错误：SERPAPI_API_KEY 未在 .env 文件中配置。"
 
-        params = {
-            "engine": "google",
-            "q": query,
-            "api_key": api_key,
-            "gl": "cn",  # 国家代码
-            "hl": "zh-cn", # 语言代码
-        }
+        # 使用新版本的 serpapi API
+        client = serpapi.Client(api_key=api_key)
+        results = client.search(
+            q=query,
+            engine="google",
+            gl="cn",  # 国家代码
+            hl="zh-cn",  # 语言代码
+        )
         
-        client = SerpApiClient(params)
-        results = client.get_dict()
+        # SerpResults 继承自 UserDict，可以直接像字典一样使用
         
         # 智能解析：优先寻找最直接的答案
         if "answer_box_list" in results:
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     # 2. 注册我们的实战搜索工具
     search_description = "一个网页搜索引擎。当你需要回答关于时事、事实以及在你的知识库中找不到的信息时，应使用此工具。"
     toolExecutor.registerTool("Search", search_description, search)
-    
+ 
     # 3. 打印可用的工具
     print("\n--- 可用的工具 ---")
     print(toolExecutor.getAvailableTools())

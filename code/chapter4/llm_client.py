@@ -5,6 +5,8 @@ from typing import List, Dict
 
 # 加载 .env 文件中的环境变量
 load_dotenv()
+# 避免本地 Ollama 请求被代理拦截
+os.environ.setdefault("NO_PROXY", "localhost,127.0.0.1") 
 
 class HelloAgentsLLM:
     """
@@ -59,7 +61,7 @@ if __name__ == '__main__':
         
         exampleMessages = [
             {"role": "system", "content": "You are a helpful assistant that writes Python code."},
-            {"role": "user", "content": "写一个快速排序算法"}
+            {"role": "user", "content": "什么是爱情（1000字）"}
         ]
         
         print("--- 调用LLM ---")
