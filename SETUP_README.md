@@ -30,7 +30,7 @@ bash setup_env.sh
 
 脚本会引导你配置以下内容：
 
-1. **LLM_MODEL_ID**: 模型名称（例如: `qwen2.5:1.5b`）
+1. **LLM_MODEL_ID**: 模型名称（例如: `qwen2.5:7b`）
 2. **LLM_API_KEY**: API 密钥
 3. **LLM_BASE_URL**: API 地址（例如: `http://127.0.0.1:11434/v1`）
 4. **SERPAPI_API_KEY**: SerpAPI 密钥（可选，用于搜索功能）

@@ -1,4 +1,5 @@
 # test_simple_agent.py
+import os
 from dotenv import load_dotenv
 from hello_agents import HelloAgentsLLM, ToolRegistry
 from hello_agents.tools import CalculatorTool
@@ -6,7 +7,8 @@ from my_simple_agent import MySimpleAgent
 
 # 加载环境变量
 load_dotenv()
-
+# 避免本地 Ollama 请求被代理拦截
+os.environ.setdefault("NO_PROXY", "localhost,127.0.0.1") 
 # 创建LLM实例
 llm = HelloAgentsLLM()
 
